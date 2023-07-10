@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Trible Screenshoter</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 62.5%;
+            font-weight: 400;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0C0F14;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+CiAgPGNpcmNsZSBjbGFzcz0iYiIgY3g9IjgiIGN5PSI4IiByPSIxIiBmaWxsPSIjMUYyNTMzIi8+Cjwvc3ZnPgo=);
+            background-size: 16px 16px;
+            color: #fff;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 3.2rem 0;
+            margin-bottom: 9.6rem;
+        }
+
+        .logo {
+            height: 2.8rem;
+            margin-bottom: 3.2rem;
+        }
+
+        #result-image,
+        #capture {
+            display: flex;
+            width: 108rem;
+            padding: 6.4rem;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.10) 100%), linear-gradient(45deg, #182DEA 0%, #2EBBF8 50%, #5EFF5A 100%);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 100%;
+            border-radius: 4rem;
+            padding: 1.6rem;
+            border: 2px solid rgba(255, 255, 255, 0.60);
+            background: radial-gradient(340.32% 136.38% at 0.00% 3.35%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.50) 100%);
+            box-shadow: 0px 56px 70px -24px rgba(4, 10, 0, 0.25);
+            backdrop-filter: blur(12px);
+        }
+
+        #drop-zone {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 2.2rem;
+            overflow: hidden;
+            box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            color: #0C0F14;
+            font-size: 2.2rem;
+            font-weight: 600;
+            transition: background-color 300ms ease;
+        }
+
+        p {
+            padding: 20rem 0;
+        }
+
+        #drop-zone:hover {
+            background-color: rgba(252, 255, 225, 0.3);
+        }
+
+        #drop-zone:before {
+            content: '';
+            width: calc(100% - 6px);
+            height: calc(100% - 6px);
+            position: absolute;
+            z-index: -1;
+            border: 2px dashed #2067d9;
+            border-radius: 2.2rem;
+        }
+
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .button-wrapper {
+            padding-top: 3.2rem;
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            bottom: 3.2rem;
+        }
+
+        button {
+            min-width: 20rem;
+            height: 5.6rem;
+            border-radius: 1.2rem;
+            font-family: inherit;
+            font-size: 1.8rem;
+            font-weight: 600;
+            background-color: #2067D9;
+            color: #fff;
+            outline: solid 4px #0C0F14;
+            border: none;
+            cursor: pointer;
+            transition: all 200ms ease;
+        }
+
+        button:hover {
+            transform: translateY(-0.4rem);
+            box-shadow: 0 4px 0 4px #0C0F14;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div class="wrapper">
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 244 48" class="logo"><path d="M9.886 26.75c-5.311 0-9.632-4.32-9.632-9.629a9.653 9.653 0 012.984-6.963l4.974 5.227a2.373 2.373 0 00-.742 1.736 2.418 2.418 0 002.417 2.415 2.39 2.39 0 001.742-.745l5.216 4.985a9.67 9.67 0 01-6.958 2.975zM10.339.784c-.639.995 6.162 4.455 8.791 11.782.43 1.194 1.753 5.285.646 9.928-2.2 9.243-12.19 12.941-13.243 13.312 4.997 3.132 13.146 8.24 18.471 11.576l5.249-43.016c-5.119 0-10.235-.754-14.698-2.254-2.421-.815-4.842-1.916-5.217-1.327zm30.39 21.71c-1.104-4.643.22-8.734.646-9.928 2.634-7.327 9.43-10.787 8.796-11.782-.375-.588-2.796.512-5.22 1.327-4.462 1.501-9.578 2.254-14.698 2.254l5.253 43.017c6.155-3.86 12.312-7.716 18.471-11.576-1.054-.371-11.043-4.069-13.247-13.312zm19.525-5.374a9.649 9.649 0 00-2.984-6.963l-4.973 5.227c.479.456.742 1.072.742 1.736a2.418 2.418 0 01-2.417 2.415 2.386 2.386 0 01-1.742-.745l-5.216 4.984a9.67 9.67 0 006.958 2.976c5.311 0 9.632-4.32 9.632-9.63zm15.06-10.879v6.261a.5.5 0 00.5.5h8.646a.5.5 0 01.5.5v28.256a.5.5 0 00.5.5h7.321a.5.5 0 00.5-.5V13.502a.5.5 0 01.5-.5h8.646a.5.5 0 00.5-.5V6.241a.5.5 0 00-.5-.5H75.814a.5.5 0 00-.5.5zm60.37 35.229l-8.412-11.929a.504.504 0 01.279-.771c4.392-1.363 7.841-6.058 7.841-10.945 0-6.042-3.816-12.084-12.296-12.084H108.65a.5.5 0 00-.5.5v35.517a.5.5 0 00.5.5h7.321a.5.5 0 00.5-.5V30.432a1 1 0 011-1h.155c.338 0 .653.17.837.453l7.93 12.146c.092.141.25.227.419.227h8.464a.5.5 0 00.409-.788zm-13.701-28.468c3.392 0 5.035 2.597 5.035 5.035s-1.59 4.823-5.247 4.823h-4.8a.5.5 0 01-.5-.5v-8.858a.5.5 0 01.5-.5h5.012zm28.493 28.756V6.241a.5.5 0 00-.5-.5h-7.321a.5.5 0 00-.5.5v35.517a.5.5 0 00.5.5h7.321a.5.5 0 00.5-.5zm29.065-19.004c4.187-1.219 5.141-5.035 5.141-7.579 0-5.406-4.293-9.434-10.971-9.434h-14.287a.5.5 0 00-.5.5v35.517a.5.5 0 00.5.5h15.347c8.586 0 11.819-5.512 11.819-10.494 0-4.187-2.226-8.321-7.049-9.01zm-3.18-6.254c0 2.226-1.325 3.498-3.286 3.498h-5.33a.5.5 0 01-.5-.5v-5.996a.5.5 0 01.5-.5h5.383c2.279 0 3.233 1.643 3.233 3.498zm-9.116 17.997v-7.162a.5.5 0 01.5-.5h6.019c3.127 0 4.452 2.173 4.452 4.081 0 2.067-1.484 4.081-4.452 4.081h-6.019a.5.5 0 01-.5-.5zm33.454-28.756h-7.321a.5.5 0 00-.5.5v35.517a.5.5 0 00.5.5h20.73a.5.5 0 00.5-.5v-6.261a.5.5 0 00-.5-.5h-12.409a.5.5 0 01-.5-.5V6.241a.5.5 0 00-.5-.5zm27.965 22.26h12.25a.5.5 0 00.5-.5v-6.473a.5.5 0 00-.5-.5h-12.25a.5.5 0 01-.5-.5v-6.526a.5.5 0 01.5-.5h14.105a.5.5 0 00.5-.5V6.241a.5.5 0 00-.5-.5h-22.426a.5.5 0 00-.5.5v35.517a.5.5 0 00.5.5h22.903a.5.5 0 00.5-.5v-6.261a.5.5 0 00-.5-.5h-14.582a.5.5 0 01-.5-.5v-5.996a.5.5 0 01.5-.5z" fill="#ffffff"></path></svg>
+
+        <div id="capture">
+            <div class="image-wrapper">
+                <div id="drop-zone">
+                    <img src="" alt="">
+                    <p>Drop image or click to upload</p>
+                    <input type="file" id="myfile" hidden>
+                </div>
+            </div>
+        </div>
+        <div class="button-wrapper">
+            <button id="btn">Download</button>
+        </div>
+    </div>
+
+<script>
+    const dropZone = document.querySelector('#drop-zone');
+    const inputElement = document.querySelector('input');
+    const img = document.querySelector('img');
+    let p = document.querySelector('p')
+
+    inputElement.addEventListener('change', function (e) {
+        const clickFile = this.files[0];
+        if (clickFile) {
+            img.style = "display:block;";
+            p.style = 'display: none';
+            const reader = new FileReader();
+            reader.readAsDataURL(clickFile);
+            reader.onloadend = function () {
+                const result = reader.result;
+                let src = this.result;
+                img.src = src;
+                img.alt = clickFile.name
+            }
+        }
+    })
+    dropZone.addEventListener('click', () => inputElement.click());
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        img.style = "display:block;";
+        let file = e.dataTransfer.files[0];
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function () {
+            e.preventDefault()
+            p.style = 'display: none';
+            let src = this.result;
+            img.src = src;
+            img.alt = file.name
+        }
+    });
+
+
+    function capture() {
+    const captureElement = document.querySelector('#capture')
+    html2canvas(captureElement)
+        .then(canvas => {
+            canvas.style.display = 'none'
+            document.body.appendChild(canvas)
+            return canvas
+        })
+        .then(canvas => {
+            const image = canvas.toDataURL('image/png')
+            const a = document.createElement('a')
+            a.setAttribute('download', 'my-image.png')
+            a.setAttribute('href', image)
+            a.click()
+            canvas.remove()
+        })
+}
+
+const btn = document.querySelector('#btn')
+btn.addEventListener('click', capture)
+
+</script>
+</body>
+</html>
